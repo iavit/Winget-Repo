@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  winget-repo:
+    build: .
+    container_name: winget-repo
+    ports:
+      - "5000:5000"
+    volumes:
+      # Map local folders to container folders to persist data
+      # Adjust these paths based on where Winget-Repo saves its DB and files
+      - ./Data:/app/Data 
+      - ./Packages:/app/Packages
+      - ./SSL:/app/SSL
+    restart: unless-stopped
