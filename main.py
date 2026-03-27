@@ -4,6 +4,7 @@ import sys
 from a2wsgi import ASGIMiddleware
 from fastapi import FastAPI
 from flask import Flask, send_from_directory, url_for, render_template
+from waitress import serve
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from slowapi.errors import RateLimitExceeded
 from slowapi import _rate_limit_exceeded_handler
@@ -103,4 +104,7 @@ if __name__ == '__main__':
         else:
             print("Error while starting the development server! Please check the certificates!")
     else:
-        app.run()
+        host = os.getenv("HOST", "0.0.0.0")
+        port = int(os.getenv("PORT", "5000"))
+        threads = int(os.getenv("WAITRESS_THREADS", "8"))
+        serve(app, host=host, port=port, threads=threads)

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Winget-Repo</Name>
+  <Repository>ghcr.io/dev-fynn/winget-repo:latest</Repository>
+  <Registry>https://ghcr.io</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/dev-fYnn/Winget-Repo/issues</Support>
+  <Project>https://github.com/dev-fYnn/Winget-Repo</Project>
+  <Overview>
+    Winget-Repo is a private repository for Windows Package Manager clients.
+    This template exposes the web UI/API and persists application data.
+    For production rate limiting, configure Redis URIs in the limiter environment variables.
+  </Overview>
+  <Category>Productivity: Tools:</Category>
+  <WebUI>http://[IP]:[PORT:5000]/ui</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/dev-fYnn/Winget-Repo/master/my-Winget-Repo.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/dev-fYnn/Winget-Repo/master/static/images/logo.png</Icon>
+
+  <Config Name="WebUI Port" Target="5000" Default="5000" Mode="tcp" Description="Container port for Winget-Repo" Type="Port" Display="always" Required="true" Mask="false">5000</Config>
+
+  <Config Name="Data Path" Target="/app/Data" Default="/mnt/user/appdata/winget-repo/Data" Mode="rw" Description="Persistent app data path" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/winget-repo/Data</Config>
+  <Config Name="Packages Path" Target="/app/Packages" Default="/mnt/user/appdata/winget-repo/Packages" Mode="rw" Description="Stored packages path" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/winget-repo/Packages</Config>
+  <Config Name="SSL Path" Target="/app/SSL" Default="/mnt/user/appdata/winget-repo/SSL" Mode="rw" Description="TLS certificate path" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/winget-repo/SSL</Config>
+
+  <Config Name="HOST" Target="HOST" Default="0.0.0.0" Mode="" Description="Bind address used by Waitress" Type="Variable" Display="advanced" Required="false" Mask="false">0.0.0.0</Config>
+  <Config Name="PORT" Target="PORT" Default="5000" Mode="" Description="App port used by Waitress" Type="Variable" Display="advanced" Required="false" Mask="false">5000</Config>
+  <Config Name="WAITRESS_THREADS" Target="WAITRESS_THREADS" Default="8" Mode="" Description="Worker thread count for Waitress" Type="Variable" Display="advanced" Required="false" Mask="false">8</Config>
+  <Config Name="FLASK_LIMITER_STORAGE_URI" Target="FLASK_LIMITER_STORAGE_URI" Default="memory://" Mode="" Description="Rate limit backend URI (recommended: redis://host:6379/0)" Type="Variable" Display="advanced" Required="false" Mask="false">memory://</Config>
+  <Config Name="SLOWAPI_LIMITER_STORAGE_URI" Target="SLOWAPI_LIMITER_STORAGE_URI" Default="memory://" Mode="" Description="API rate limit backend URI (recommended: redis://host:6379/1)" Type="Variable" Display="advanced" Required="false" Mask="false">memory://</Config>
+</Container>
