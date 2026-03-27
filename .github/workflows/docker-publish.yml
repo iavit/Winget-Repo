@@ -25,12 +25,3 @@ jobs:
         with:
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
-          context: .
-          file: Dockerfile
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          build-args:
-            - BUILD_ENV=production
-            - BUILD_NUMBER=${{ github.run_number }}
-            - BUILD_TIMESTAMP=${{ github.run_timestamp }}
-            - BUILD_BRANCH=${{ github.ref_name }}
